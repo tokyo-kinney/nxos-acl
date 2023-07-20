@@ -1,0 +1,23 @@
+---
+- name: nxos acl testing
+  hosts: nexus9k1
+  gather_facts: false
+  vars:
+
+  tasks:
+  - name: Parse given config to structured data
+    cisco.nxos.nxos_acls:
+      running_config: "{{ lookup('file', 'nxos-cisco-9k-template') }}"
+      state: parsed
+    register: acl_parsed
+
+  - name: Do reconciliation of parsed ACL
+    cisco.nxos.nxos_acls:
+      config: "{{ acl_parsed.parsed }}"
+      state: replaced
+    register: acl_ran
+
+  - name: Debug when changed
+    when: acl_ran.changed == true
+    debug:
+      var: acl_ran.commands
