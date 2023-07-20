@@ -1,6 +1,6 @@
 ---
 - name: nxos acl testing
-  hosts: nexus9k1
+  hosts: all
   gather_facts: false
   vars:
 
