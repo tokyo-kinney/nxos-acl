@@ -1,0 +1,4 @@
+---
+collections:
+# Modules
+  - name: cisco.nxos
